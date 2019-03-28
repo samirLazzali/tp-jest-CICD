@@ -1,0 +1,1 @@
+const Interval = require('./interval');
