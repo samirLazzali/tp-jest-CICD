@@ -128,7 +128,18 @@ class Interval {
      * @returns {Interval[]}
      */
     exclusion(interval) {
-
+        var min = (this.start < interval.start ? this : interval)
+        var max = (min == this ? interval : this)
+        if (this.start === interval.start && this.end === interval.end)
+            return []
+        else if (this.intersection(interval).length == 0)
+            return new Interval(this, interval)
+        else if (this.includes(interval) || interval.includes(this))
+            if (this.end > interval.end)
+                return new Interval(new Interval(this.start, interval.start), new Interval(interval.end, this.end))
+            else
+                return new Interval(new Interval(interval.start, this.start), new Interval(this.end, interval.end))
+        else return new Interval(new Interval(min.start, max.start), new Interval(min.end, max.end))
     };
 }
 
