@@ -73,3 +73,46 @@ describe('includes', function () {
     expect(inter020.includes(inter510)).toBe(true)
   })
 })
+
+describe('union', function () {
+  let inter010 = new Interval(0, 10)
+  let inter020 = new Interval(0, 20)
+  let inter1020 = new Interval(10, 20)
+  let inter50100 = new Interval(50, 100)
+  let inter1010 = new Interval(10, 10)
+  let inter510 = new Interval(5, 10)
+
+  test('union 0 10 avec 0 10 => 0 10 ', () => {
+    expect(inter010.union(inter010)).toEqual(new Interval(0, 10))
+  })
+  test('union 0 20 avec 5 10 => 0 20 ', () => {
+    expect(inter020.union(inter510)).toEqual(new Interval(0, 20))
+  })
+  test('union 5 10 avec 0 20 => 0 20 ', () => {
+    expect(inter510.union(inter020)).toEqual(new Interval(0, 20))
+  })
+  test('union 0 10 avec 50 100 => 0 10 50 100 ', () => {
+    expect(inter010.union(inter50100)).toEqual(new Interval(new Interval(0, 10), new Interval(50, 100)))
+  })
+  test('union 50 100 avec 0 10 =>  50 100 0 10 ', () => {
+    expect(inter50100.union(inter010)).toEqual(new Interval(new Interval(50, 100), new Interval(0, 10)))
+  })
+  test('union 50 100 avec 0 10 =>  50 100 0 10 ', () => {
+    expect(inter50100.union(inter010)).toEqual(new Interval(new Interval(50, 100), new Interval(0, 10)))
+  })
+  test('Union 10 10 avec 10 10 => 10 10', () => {
+    expect(inter1010.union(inter1010)).toEqual(new Interval(10, 10))
+  })
+  test('Union 10 10 avec 10 20 => 10 20', () => {
+    expect(inter1010.union(inter1020)).toEqual(new Interval(10, 20))
+  })
+  test('Union 10 20 avec 10 10 => 10 20', () => {
+    expect(inter1020.union(inter1010)).toEqual(new Interval(10, 20))
+  })
+  test('Union 0 10 avec 10 20 => 0 20', () => {
+    expect(inter010.union(inter1020)).toEqual(new Interval(0, 20))
+  })
+  test('Union 10 20 avec 0 10 => 0 20', () => {
+    expect(inter1020.union(inter010)).toEqual(new Interval(0, 20))
+  })
+})
