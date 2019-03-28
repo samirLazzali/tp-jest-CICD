@@ -167,3 +167,53 @@ describe('intersection', function () {
     expect(inter020.intersection(inter1030)).toEqual(new Interval(10, 20))
   })
 })
+
+describe('exclusion', function () {
+  let inter010 = new Interval(0, 10)
+  let inter020 = new Interval(0, 20)
+  let inter1020 = new Interval(10, 20)
+  let inter50100 = new Interval(50, 100)
+  let inter1010 = new Interval(10, 10)
+  let inter1030 = new Interval(10, 30)
+  let inter510 = new Interval(5, 10)
+  let inter525 = new Interval(5, 25)
+
+  test('exclusion 0 10 avec 0 10 => [] ', () => {
+    expect(inter010.exclusion(inter010)).toEqual([])
+  })
+  test('exclusion 50 100 avec 0 10 =>  [] ', () => {
+    expect(inter50100.exclusion(inter010)).toEqual(new Interval(new Interval(50, 100), new Interval(0, 10)))
+  })
+  test('exclusion 0 20 avec 5 10 => 5 10 ', () => {
+    expect(inter020.exclusion(inter510)).toEqual(new Interval(new Interval(0, 5), new Interval(10, 20)))
+  })
+
+  test('exclusion 5 10 avec 0 20 => 5 10 ', () => {
+    expect(inter510.exclusion(inter020)).toEqual(new Interval(new Interval(0, 5), new Interval(10, 20)))
+  })
+  test('exclusion 0 20 avec 5 25 => 5 20 ', () => {
+    expect(inter020.exclusion(inter525)).toEqual(new Interval(new Interval(0, 5), new Interval(20, 25)))
+  })
+
+  test('exclusion 5 25 avec 0 20 => 5 20 ', () => {
+    expect(inter525.exclusion(inter020)).toEqual(new Interval(new Interval(0, 5), new Interval(20, 25)))
+  })
+
+  test('exclusion 0 10 avec 50 100 =>  [] ', () => {
+    expect(inter010.exclusion(inter50100)).toEqual(new Interval(new Interval(0, 10), new Interval(50, 100)))
+  })
+
+  test('exclusion 10 10 avec 10 10 => 10 10', () => {
+    expect(inter1010.exclusion(inter1010)).toEqual([])
+  })
+
+  test('exclusion 0 10 avec 10 20 => 0 20', () => {
+    expect(inter010.exclusion(inter1020)).toEqual(new Interval(new Interval(0, 10), new Interval(10, 20)))
+  })
+  test('exclusion 10 20 avec 0 10 => 0 20', () => {
+    expect(inter1020.exclusion(inter010)).toEqual(new Interval(new Interval(0, 10), new Interval(10, 20)))
+  })
+  test('exclusion 0 20 avec 10 30 =>  10 20 ', () => {
+    expect(inter020.exclusion(inter1030)).toEqual(new Interval(new Interval(0, 10), new Interval(20, 30)))
+  })
+})
