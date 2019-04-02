@@ -1,0 +1,39 @@
+{
+  "name": "test-tp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "verbose": true,
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 40,
+        "lines": 90,
+        "statements": 90
+      }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kirouane/test-tp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kirouane/test-tp/issues"
+  },
+  "homepage": "https://github.com/Kirouane/test-tp#readme",
+  "devDependencies": {
+    "@stryker-mutator/core": "^1.1.1",
+    "@stryker-mutator/javascript-mutator": "^1.1.1",
+    "@stryker-mutator/jest-runner": "^1.1.1",
+    "jest": "^24.1.0"
+  }
+}
